@@ -36,4 +36,23 @@ public class Post extends BaseEntity {    // 게시글 엔티티
         this.content = content;
         this.status = status;
     }
+
+
+    //======= 비즈니스로직 =======//
+    /**
+     * 게시물 수정
+     * */
+    public void editPost(String title, String content) {
+        if(status == ExistStatus.NOT_EXIST) {
+            throw new IllegalStateException("삭제 된 포스트는 수정이 불가능합니다.");
+        }
+        this.title = title;
+        this.content = content;
+    }
+
+    /**
+     * 게시물 삭제
+     * row삭제 대신 ExistStatus 변경
+     * */
+//    public void deletePost()
 }

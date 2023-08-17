@@ -8,6 +8,7 @@ import study.blog.entity.Post;
 import study.blog.repository.PostRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,6 +24,15 @@ public class PostService {
     public Long createPost(Post post) {
         postRepository.save(post);
         return post.getId();
+    }
+
+    /**
+     * 게시물 수정
+     * */
+    @Transactional
+    public void update(Long id, String title, String content) {
+        Post post = postRepository.findById(id).get();
+        post.editPost(title, content);
     }
 
     /**
