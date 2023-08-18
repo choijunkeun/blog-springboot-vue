@@ -27,6 +27,7 @@ public class Post extends BaseEntity {    // 게시글 엔티티
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>(); // 댓글
 
+    // 게시글 상태를 존재, 미존재 말고 게시, 숨김, 삭제로 바꿀 예정..
     @Enumerated(value = EnumType.STRING)
     private ExistStatus status; // 게시글 상태 [EXIST, NOT_EXIST]
 
