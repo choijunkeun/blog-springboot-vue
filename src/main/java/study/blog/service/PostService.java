@@ -2,9 +2,12 @@ package study.blog.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.blog.entity.Post;
+import study.blog.enums.ExistStatus;
 import study.blog.repository.PostRepository;
 
 import java.util.List;
@@ -36,10 +39,28 @@ public class PostService {
     }
 
     /**
+     * 게시물 상태 변경(숨김처리)
+     * */
+    @Transactional
+    public void updateStatus(Long id, ExistStatus status) {
+        Post post = postRepository.findById(id).get();
+        post.hidePost(status);
+    }
+
+    /**
+     * 게시물 삭제
+     * */
+    @Transactional
+    public void delete(Long id, ExistStatus status) {
+        Post post = postRepository.findById(id).get();
+        post.deletePost(status);
+    }
+
+    /**
      * 게시물 전체 조회
      * */
-    public List<Post> findAllPost() {
-        return postRepository.findAll();
+    public Page<Post> findAll(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 
     /**

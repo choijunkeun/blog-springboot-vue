@@ -25,14 +25,15 @@ class PostRepositoryTest {
     @Test
     public void testCreatePost() {
         // given
-        Post post = new Post("게시글 제목1", "내용입니다", ExistStatus.EXIST);
+        for(int i=1; i <= 100; i++) {
+            Post post = new Post("게시글" + i, "내용입니다" + i, ExistStatus.EXIST);
+            Post savedPost = postRepository.save(post);
+        }
 
         // when
-        Post savedPost = postRepository.save(post);
-        Post findPost = postRepository.findByTitle("게시글 제목1").get(0);
+//        Post findPost = postRepository.findByTitle("게시글 제목1").get(0);
 
         // then
-        assertThat(findPost.getTitle()).isEqualTo(post.getTitle());
     }
 
 

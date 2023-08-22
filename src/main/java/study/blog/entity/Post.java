@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "title", "content", "status"})
-public class Post extends BaseEntity {    // 게시글 엔티티
+public class Post extends BaseTimeEntity {    // 게시글 엔티티
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
@@ -52,8 +52,23 @@ public class Post extends BaseEntity {    // 게시글 엔티티
     }
 
     /**
-     * 게시물 삭제
-     * row삭제 대신 ExistStatus 변경
+     * 게시물 숨김
      * */
-//    public void deletePost()
+    public void hidePost(ExistStatus status) {
+        if(status != ExistStatus.HIDE) {
+            this.status = ExistStatus.HIDE;
+        } else {
+            this.status = ExistStatus.EXIST;
+        }
+    }
+
+    /**
+     * 게시물 삭제(NOT_EXIST 상태변경)
+     * */
+    public void deletePost(ExistStatus status) {
+        if(status == ExistStatus.NOT_EXIST) {
+            throw new IllegalStateException("이미 삭제 된 포스트입니다.");
+        }
+        this.status = ExistStatus.NOT_EXIST;
+    }
 }

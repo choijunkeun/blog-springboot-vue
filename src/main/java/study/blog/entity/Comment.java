@@ -9,7 +9,7 @@ import study.blog.enums.ExistStatus;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment extends BaseEntity {  // 댓글
+public class Comment extends BaseTimeEntity {  // 댓글
 
     @Id @GeneratedValue
     @Column(name = "comment_id")
