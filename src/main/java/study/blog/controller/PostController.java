@@ -9,7 +9,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import study.blog.dto.PostDto;
 import study.blog.entity.Post;
-import study.blog.repository.PostRepository;
 import study.blog.service.PostService;
 
 
@@ -70,7 +69,7 @@ public class PostController {
     /**
      * 게시글 상태 변경(숨김처리) 코드 수정중....
      * */
-    @PatchMapping("/api/posts/{id}")
+    @PatchMapping("/api/hidePosts/{id}")
     public PostDto.UpdatePostResponse updatePostStatus(
             @PathVariable("id") Long id,
             @RequestBody @Valid PostDto.UpdatePostRequest request) {
@@ -84,4 +83,12 @@ public class PostController {
                 .build();
     }
 
+    @PatchMapping("/api/deletePosts/{id}")
+    public String deletePost(
+            @PathVariable("id") Long id,
+            @RequestBody @Valid PostDto.UpdatePostRequest request) {
+
+        postService.delete(id, request.getStatus());
+        return "redirect:/";    // 클라이언트 연결했을 때는 어떻게 해야할까..?
+    }
 }

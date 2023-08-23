@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "title", "content", "status"})
-public class Post extends BaseTimeEntity {    // 게시글 엔티티
+public class Post extends BaseEntity {    // 게시글 엔티티
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")

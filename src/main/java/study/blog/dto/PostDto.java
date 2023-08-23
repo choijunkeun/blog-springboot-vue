@@ -5,6 +5,8 @@ import lombok.*;
 import study.blog.entity.Post;
 import study.blog.enums.ExistStatus;
 
+import java.time.LocalDateTime;
+
 
 public class PostDto {
 
@@ -15,6 +17,9 @@ public class PostDto {
         private String title;
         private String content;
         private ExistStatus status;
+
+        private String createdBy;
+        private String lastModifiedDate;
 
         public PostResponse(Long id, String title, String content, ExistStatus status) {
             this.id = id;
@@ -28,6 +33,8 @@ public class PostDto {
             this.title = post.getTitle();
             this.content = post.getContent();
             this.status = post.getStatus();
+            this.createdBy = post.getCreatedBy();
+            this.lastModifiedDate = String.valueOf(post.getLastModifiedDate());
         }
     }
 

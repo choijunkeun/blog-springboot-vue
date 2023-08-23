@@ -10,9 +10,6 @@ import study.blog.entity.Post;
 import study.blog.enums.ExistStatus;
 import study.blog.repository.PostRepository;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
