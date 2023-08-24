@@ -2,6 +2,7 @@
     <div class="board-detail">
         <div class="board-contents">
             <h3>{{ title }}</h3>
+            <h2>나오나요?</h2>
             <div>
                 <strong class="w3-large">{{ content }}</strong>
                 <br>
@@ -19,11 +20,11 @@ export default {
     data() { //변수생성
         return {
             requestBody: this.$route.query,
-            idx: this.$route.query.idx,
+            id: this.$route.query.id,
+
             title: '',
-            author: '',
-            contents: '',
-            created_at: ''
+            content: '',
+            lastModifiedDate: '',
         }
     },
     mounted() {
@@ -31,7 +32,7 @@ export default {
     },
     methods: {
         fnGetView() {
-            this.$axios.get('/api/posts/' + this.idx, {
+            this.$axios.get('/api/posts/' + this.id, {
                 params: this.requestBody
             }).then((res) => {
                 console.log("디테일 들어오나 확인이나 하자");

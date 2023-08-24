@@ -6,7 +6,8 @@ import study.blog.entity.Post;
 import study.blog.enums.ExistStatus;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PostDto {
 
@@ -18,8 +19,10 @@ public class PostDto {
         private String content;
         private ExistStatus status;
 
+        private List<ReplyDto.ReplyResponse> replies;
+
         private String createdBy;
-        private String lastModifiedDate;
+        private LocalDateTime lastModifiedDate;
 
         public PostResponse(Long id, String title, String content, ExistStatus status) {
             this.id = id;
@@ -28,13 +31,19 @@ public class PostDto {
             this.status = status;
         }
 
+        @Builder
         public PostResponse(Post post) {
             this.id = post.getId();
             this.title = post.getTitle();
             this.content = post.getContent();
             this.status = post.getStatus();
             this.createdBy = post.getCreatedBy();
-            this.lastModifiedDate = String.valueOf(post.getLastModifiedDate());
+            this.lastModifiedDate = post.getLastModifiedDate();
+
+            this.replies = post.getReplies()
+                            .stream()
+                            .map(ReplyDto.ReplyResponse::new)
+                            .collect(Collectors.toList());
         }
     }
 

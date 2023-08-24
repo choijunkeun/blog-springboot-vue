@@ -1,59 +1,23 @@
 <template>
-<!--    <div class="board-list">-->
-<!--        <div class="common-buttons">-->
-<!--            <button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="fnWrite">등록</button>-->
-<!--        </div>-->
-<!--        <table class="w3-table-all">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th>No</th>-->
-<!--                <th>제목</th>-->
-<!--                <th>내용</th>-->
-<!--                <th>등록일시</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr v-for="row in list">-->
-<!--                <td>{{ row.id }}</td>-->
-<!--                <td><a v-on:click="fnView(`${row.id}`)">{{ row.title }}</a></td>-->
-<!--                <td>{{ row.content }}</td>-->
-<!--                <td>{{ row.lastModifiedDate }}</td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--        <div class="pagination w3-bar w3-padding-16 w3-small" v-if="paging.total_list_cnt > 0">-->
-<!--      <span class="pg">-->
-<!--      <a href="javascript:;" @click="fnPage(1)" class="first w3-button w3-border">&lt;&lt;</a>-->
-<!--      <a href="javascript:;" v-if="paging.start_page > 10" @click="fnPage(`${paging.start_page-1}`)"-->
-<!--         class="prev w3-button w3-border">&lt;</a>-->
-<!--      <template v-for=" (n,index) in paginavigation()">-->
-<!--          <template v-if="paging.page==n">-->
-<!--              <strong class="w3-button w3-border w3-green" :key="index">{{ n }}</strong>-->
-<!--          </template>-->
-<!--          <template v-else>-->
-<!--              <a class="w3-button w3-border" href="javascript:;" @click="fnPage(`${n}`)" :key="index">{{ n }}</a>-->
-<!--          </template>-->
-<!--      </template>-->
-<!--      <a href="javascript:;" v-if="paging.total_page_cnt > paging.end_page"-->
-<!--         @click="fnPage(`${paging.end_page+1}`)" class="next w3-button w3-border">&gt;</a>-->
-<!--      <a href="javascript:;" @click="fnPage(`${paging.total_page_cnt}`)" class="last w3-button w3-border">&gt;&gt;</a>-->
-<!--      </span>-->
-<!--        </div>-->
-<!--    </div>-->
-
-
     <div>
-        <b-card-group deck>
-            <b-card v-for="row in list" title="`${row.title}`" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
-                <b-card-text>
-                    {{row.content}}
-                </b-card-text>
-                <b-button href="javascript:;" @click="fnView(`${row.id}`)" variant="primary">Go somewhere</b-button>
-                <template #footer>
-                    <small class="text-muted">{{row.lastModifiedDate}}</small>
-                </template>
-            </b-card>
-        </b-card-group>
+            <b-card-group deck>
+                <b-card
+                    v-for="row in list"
+                    img-src="https://picsum.photos/600/300/?image=25"
+                    img-alt="Image"
+                    img-top
+                    tag="article"
+                    style="max-width: 20rem;"
+                    class="mb-3">
+                    <b-card-header> {{row.title}} </b-card-header>
+                    <b-card-body>
+                        <b-button href="javascript:;" @click="fnView(`${row.id}`)" variant="primary">상세보기</b-button>
+                    </b-card-body>
+                    <b-card-footer>
+                        {{row.lastModifiedDate}}
+                    </b-card-footer>
+                </b-card>
+            </b-card-group>
     </div>
 
 </template>
@@ -87,7 +51,7 @@ export default {
                 let end_page = this.paging.end_page;
                 for (let i = start_page; i <= end_page; i++) pageNumber.push(i);
                 return pageNumber;
-            }
+            },
         }
     },
     mounted() {
@@ -96,7 +60,6 @@ export default {
     methods: {
         fnGetList() {
             this.requestBody = {
-                keyword: this.keyword,
                 page: this.page,
                 size: this.size
             }
@@ -114,10 +77,10 @@ export default {
                 }
             })
         },
-        fnView(idx) {
-            this.requestBody.id = idx;
+        fnView(id) {
+            this.requestBody.id = id;
             this.$router.push({
-                path: './post/detail',
+                name: 'postDetail',
                 query: this.requestBody
             })
         },
